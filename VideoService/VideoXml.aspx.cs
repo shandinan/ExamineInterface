@@ -19,7 +19,7 @@ namespace VideoService
             Request.InputStream.Read(byts, 0, byts.Length);
             string req = HttpUtility.UrlDecode(System.Text.Encoding.Default.GetString(byts));
             string strTest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><soapenv:Body><ns1:setVideoPara soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:ns1=\"http://webServices.tmri.com\"><para xsi:type=\"xsd:string\">&lt;?xml version=&quot;1.0&quot; encoding=&quot;GBK&quot; ?&gt;&lt;root&gt;&lt;videopara&gt;&lt;cylsh&gt;1190605983558&lt;/cylsh&gt;&lt;cyqxh&gt;320500CY0001&lt;/cyqxh&gt;&lt;cyqtd&gt;1&lt;/cyqtd&gt;&lt;cllx&gt;0&lt;/cllx&gt;&lt;cysj&gt;2019/06/10 13:37:51&lt;/cysj&gt;&lt;cycs&gt;1&lt;/cycs&gt;&lt;sfzmhm&gt;320504198404070034&lt;/sfzmhm&gt;&lt;clsbdh&gt;LC0C34DG6K1017004&lt;/clsbdh&gt;&lt;hphm&gt;&#x82CF;&lt;/hphm&gt;&lt;hpzl&gt;02&lt;/hpzl&gt;&lt;/videopara&gt;&lt;/root&gt;</para></ns1:setVideoPara></soapenv:Body></soapenv:Envelope>";
-            string strResponse = DealXML(strTest);
+            string strResponse = DealXML(req);
             // DealXML(req);
             //string strXml = HttpUtility.UrlDecode(Request.QueryString["xmldata"]);//得到对应的xml并解码
             //  string strResponse = "<string xmlns=\"http://webServices.tmri.com\"><?xml version=\"1.0\" encoding=\"GBK\"?><root><head><code>1</code> <message></message> <keystr>3</keystr> </head> <body> </body> </root></string>";
@@ -85,15 +85,26 @@ namespace VideoService
                 //    strUrl = "http://192.168.1.221:9999";
                 //}
                 string strRedisKey = strcyqxh + "_" + strcyqtd;//查验区序号_查验区通道  组成唯一key
-                if (StackExchangeRedisHelper.Exists(strRedisKey)) //缓存中存在
+                try
                 {
-                    strUrl = StackExchangeRedisHelper.Get(strRedisKey)+"";
+                    if (StackExchangeRedisHelper.Exists(strRedisKey)) //缓存中存在
+                    {
+                        strUrl = StackExchangeRedisHelper.Get(strRedisKey) + "";
+                    }
+                    else //不存在重数据库中读取得到结果并存放在redis中
+                    {
+                        string str_redis_sql = $"SELECT T.PC_IP FROM DEV_DEPART T WHERE T.CYQXH='{strcyqxh}' AND T.CYQTD='{strcyqtd}'";
+                        string str_req_ip = DBUtility.DbHelperOra.GetSingle(str_redis_sql) + "";//得到对于的控制电脑IP
+                        StackExchangeRedisHelper.Set(strRedisKey, str_req_ip);
+                        strUrl = str_req_ip;
+                    }
                 }
-                else //不存在重数据库中读取得到结果并存放在redis中
+                catch(Exception ex)
                 {
+                    sysLog.WriteOptDisk(ex.Message);
                     string str_redis_sql = $"SELECT T.PC_IP FROM DEV_DEPART T WHERE T.CYQXH='{strcyqxh}' AND T.CYQTD='{strcyqtd}'";
                     string str_req_ip = DBUtility.DbHelperOra.GetSingle(str_redis_sql) + "";//得到对于的控制电脑IP
-                    StackExchangeRedisHelper.Set(strRedisKey, str_req_ip);
+                    //StackExchangeRedisHelper.Set(strRedisKey, str_req_ip);
                     strUrl = str_req_ip;
                 }
 
