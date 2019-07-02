@@ -84,45 +84,49 @@ namespace VideoService
                 //{
                 //    strUrl = "http://192.168.1.221:9999";
                 //}
-                string strRedisKey = strcyqxh + "_" + strcyqtd;//查验区序号_查验区通道  组成唯一key
-                try
-                {
-                    if (StackExchangeRedisHelper.Exists(strRedisKey)) //缓存中存在
-                    {
-                        strUrl = StackExchangeRedisHelper.Get(strRedisKey) + "";
-                    }
-                    else //不存在重数据库中读取得到结果并存放在redis中
-                    {
-                        string str_redis_sql = $"SELECT T.PC_IP FROM DEV_DEPART T WHERE T.CYQXH='{strcyqxh}' AND T.CYQTD='{strcyqtd}'";
-                        string str_req_ip = DBUtility.DbHelperOra.GetSingle(str_redis_sql) + "";//得到对于的控制电脑IP
-                        StackExchangeRedisHelper.Set(strRedisKey, str_req_ip);
-                        strUrl = str_req_ip;
-                    }
-                }
-                catch(Exception ex)
-                {
-                    sysLog.WriteOptDisk(ex.Message);
-                    string str_redis_sql = $"SELECT T.PC_IP FROM DEV_DEPART T WHERE T.CYQXH='{strcyqxh}' AND T.CYQTD='{strcyqtd}'";
-                    string str_req_ip = DBUtility.DbHelperOra.GetSingle(str_redis_sql) + "";//得到对于的控制电脑IP
-                    //StackExchangeRedisHelper.Set(strRedisKey, str_req_ip);
-                    strUrl = str_req_ip;
-                }
+                //string strRedisKey = strcyqxh + "_" + strcyqtd;//查验区序号_查验区通道  组成唯一key
+                //try
+                //{
+                //    if (StackExchangeRedisHelper.Exists(strRedisKey)) //缓存中存在
+                //    {
+                //        strUrl = StackExchangeRedisHelper.Get(strRedisKey) + "";
+                //    }
+                //    else //不存在重数据库中读取得到结果并存放在redis中
+                //    {
+                //        string str_redis_sql = $"SELECT T.PC_IP FROM DEV_DEPART T WHERE T.CYQXH='{strcyqxh}' AND T.CYQTD='{strcyqtd}'";
+                //        string str_req_ip = DBUtility.DbHelperOra.GetSingle(str_redis_sql) + "";//得到对于的控制电脑IP
+                //        StackExchangeRedisHelper.Set(strRedisKey, str_req_ip);
+                //        strUrl = str_req_ip;
+                //    }
+                //}
+                //catch(Exception ex)
+                //{
+                //    sysLog.WriteOptDisk(ex.Message);
+                //    string str_redis_sql = $"SELECT T.PC_IP FROM DEV_DEPART T WHERE T.CYQXH='{strcyqxh}' AND T.CYQTD='{strcyqtd}'";
+                //    string str_req_ip = DBUtility.DbHelperOra.GetSingle(str_redis_sql) + "";//得到对于的控制电脑IP
+                //    //StackExchangeRedisHelper.Set(strRedisKey, str_req_ip);
+                //    strUrl = str_req_ip;
+                //}
 
-#if NET45
                 switch (strcyqxh)
                 {
                     case "320500CY0001":
                         strUrl = "http://192.168.1.221:9999";
                         break;
-                    case "320500CY0002":
+                    case "320500CY0002": //元素
                         strUrl = "http://192.167.128.129:9999";
+                        break;
+                    case "320500CY0003": //192.167.105.100 金昌众辉
+                        strUrl = "http://192.167.105.100:9999";
+                        break;
+                    case "320100CY0001"://南京车管所
+                        strUrl= "http://11.1.0.248:9999";
                         break;
                     default:
                         strUrl = "http://192.168.1.221:9999";
                         break;
 
                 }
-#endif
 
                 string strResData = new sdnHttpWebRequest().sdnDoPost(strUrl, strJsonParam);
 
