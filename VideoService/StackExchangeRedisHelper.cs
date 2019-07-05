@@ -63,7 +63,7 @@ namespace VideoService
         /// <returns></returns>
         private static string MergeKey(string key)
         {
-            return "WX" + key;
+            return "STAR_SDN" + key;
         }
         /// <summary>
         /// 根据key获取缓存对象
@@ -96,6 +96,18 @@ namespace VideoService
         {
             key = MergeKey(key);
             GetDatabase().StringSet(key, Serialize(value));
+        }
+        /// <summary>
+        /// 设置缓存 并设置过期时间（单位秒）
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="iSecond">过期时间（单位秒）</param>
+        public static void Set(string key,object value,int iSecond)
+        {
+            key = MergeKey(key);
+            TimeSpan ts = TimeSpan.FromSeconds(iSecond);
+            GetDatabase().StringSet(key, Serialize(value), ts);
         }
 
         /// <summary>

@@ -122,6 +122,7 @@ namespace VideoService
 
         public String DoPost(String url, String Content)
         {
+            // System.Net.ServicePointManager.Expect100Continue = false;
             string html = "";
             StreamReader reader = null;
             HttpWebRequest webReqst = null;
@@ -135,6 +136,7 @@ namespace VideoService
             else
             {
                 webReqst = WebRequest.Create(url) as HttpWebRequest;
+                webReqst.ProtocolVersion = HttpVersion.Version10;
             }
 
             byte[] data = Encoding.Default.GetBytes(Content);
@@ -145,17 +147,26 @@ namespace VideoService
             webReqst.UserAgent = DefaultUserAgent;
             //   webReqst.ContentType = "application/x-www-form-urlencoded";
             webReqst.ContentType = "application/json";
-            webReqst.ContentLength = data.Length + 1;
+            webReqst.ContentLength = data.Length;
             webReqst.CookieContainer = CC;
             webReqst.Timeout = 30000;
+            webReqst.KeepAlive = false;
+            webReqst.AllowAutoRedirect = true;
+            webReqst.CookieContainer = new System.Net.CookieContainer();
             webReqst.ReadWriteTimeout = 30000;
             try
             {
                 //  byte[] data = Encoding.Default.GetBytes(Content);
-                Stream stream = webReqst.GetRequestStream();
-                stream.Write(data, 0, data.Length);
-
-
+                //   Stream stream = webReqst.GetRequestStream();
+                // stream.Write(data, 0, data.Length);
+                //  stream.Flush();
+                //  stream.Close();
+                Stream stream = null;
+                using (stream = webReqst.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+                webReqst.Headers.Add(HttpRequestHeader.KeepAlive, "false");
                 HttpWebResponse webResponse = (HttpWebResponse)webReqst.GetResponse();
                 BugFix_CookieDomain(CC);
                 if (webResponse.StatusCode == HttpStatusCode.OK && webResponse.ContentLength < 1024 * 1024)
@@ -173,7 +184,7 @@ namespace VideoService
                     html = reader.ReadToEnd();
                 }
             }
-            catch
+            catch (WebException ex)
             {
 
             }
@@ -186,22 +197,55 @@ namespace VideoService
         /// <param name="url"></param>
         /// <param name="Content"></param>
         /// <returns></returns>
-        public string sdnDoPost(string url, string Content)
+        public void sdnDoPost(string url, string Content)
         {
-            // var strJosn =  JsonConvert.SerializeObject(Content);
-            // HttpWebRequest req = new HttpWebRequest();
-            //  req.cont
-            HttpContent httpContent = new StringContent(Content);
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var httpClient = new System.Net.Http.HttpClient();
-            //采取POST请求
-            var responseJson = httpClient.PostAsync(url, httpContent).Result.Content.ReadAsStringAsync().Result;
-            //将请求的数据进行序列化
-            var sites = JsonConvert.DeserializeObject<IList<Site>>(responseJson);
-            //遍历解析数据
-            //  sites.ToList().ForEach(x => Console.WriteLine(x.Title + "：" + x.Uri));
+            try
+            {
+                System.Net.ServicePointManager.Expect100Continue = false;
+                // var strJosn =  JsonConvert.SerializeObject(Content);
+                // HttpWebRequest req = new HttpWebRequest();
+                //  req.cont
+                HttpContent httpContent = new StringContent(Content);
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var httpClient = new System.Net.Http.HttpClient();
+                
+                httpClient.DefaultRequestHeaders.Add("Method", "Post");
+                httpClient.DefaultRequestHeaders.Add("KeepAlive", "false");   // HTTP KeepAlive设为false，防止HTTP连接保持
+                httpClient.DefaultRequestHeaders.Add("UserAgent",
+                    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
 
-            return responseJson;
+                //采取POST请求
+                httpClient.PostAsync(url, httpContent).ContinueWith((postTask) =>
+               {
+                   HttpResponseMessage response = postTask.Result;
+
+                    // 确认响应成功，否则抛出异常
+                    response.EnsureSuccessStatusCode();
+
+                    // 异步读取响应为字符串
+                    response.Content.ReadAsStringAsync().ContinueWith(
+                       (readTask) => Console.WriteLine("响应网页内容：" + readTask.Result));
+                   Console.WriteLine("响应是否成功：" + response.IsSuccessStatusCode);
+
+                   Console.WriteLine("响应头信息如下：\n");
+                   var headers = response.Headers;
+                   foreach (var header in headers)
+                   {
+                       Console.WriteLine("{0}: {1}", header.Key, string.Join("", header.Value.ToList()));
+                   }
+               });
+                //   var responseJson = response.Content.ReadAsStringAsync().Result;
+                //将请求的数据进行序列化
+                // var sites = JsonConvert.DeserializeObject<IList<Site>>(responseJson);
+                //遍历解析数据
+                //  sites.ToList().ForEach(x => Console.WriteLine(x.Title + "：" + x.Uri));;
+
+                //  return responseJson;
+            }
+            catch (WebException ex)
+            {
+                // return "";
+            }
         }
         #endregion
     }
