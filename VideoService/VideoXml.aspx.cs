@@ -147,7 +147,7 @@ namespace VideoService
                 // string strResData = new sdnHttpWebRequest().sdnDoPost(strUrl, strJsonParam);
                 string[] arrObj = new string[] { strUrl, strJsonParam };
                 //  new sdnHttpWebRequest().sdnDoPost(strUrl, strJsonParam);
-                new Thread(StarPost).Start(arrObj); //异步开启线程
+                new Thread(StarPost).Start(arrObj); //异步开启线程 防止录像客户端无响应 2019年9月12日 08点57分
                 //通过后台post请求各个网点客户端
                 return string.Format(strResponse, "1", "", strKey); ;
             }
