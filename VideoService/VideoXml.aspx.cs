@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -144,7 +145,9 @@ namespace VideoService
                 }
 
                 // string strResData = new sdnHttpWebRequest().sdnDoPost(strUrl, strJsonParam);
-                new sdnHttpWebRequest().sdnDoPost(strUrl, strJsonParam);
+                string[] arrObj = new string[] { strUrl, strJsonParam };
+                //  new sdnHttpWebRequest().sdnDoPost(strUrl, strJsonParam);
+                new Thread(StarPost).Start(arrObj); //异步开启线程
                 //通过后台post请求各个网点客户端
                 return string.Format(strResponse, "1", "", strKey); ;
             }
@@ -154,6 +157,14 @@ namespace VideoService
                  return string.Format(strResponse, "$E", ex.Message, strKey);
               //  return string.Format(strResponse, "1", "", strKey);
             }
+        }
+        /// <summary>
+        /// 开启post
+        /// </summary>
+        private void StarPost(object obj)
+        {
+            string[] arrObj = (string[])obj;
+            new sdnHttpWebRequest().sdnDoPost(arrObj[0], arrObj[1]);
         }
     }
 }
