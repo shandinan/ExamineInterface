@@ -132,7 +132,7 @@ namespace VideoService
                         strUrl = "http://192.167.105.100:9999";
                         break;
                     case "320100CY0001"://南京车管所
-                         strUrl= "http://11.1.0.248:9999";
+                         strUrl= "http://11.1.0.243:9999";
                       //  strUrl = "http://192.168.1.51:9999";
                         break;
                     //case "320500CY0004": //城北检测线
