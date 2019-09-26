@@ -148,7 +148,7 @@ namespace VideoService
                         strUrl = "http://192.167.114.100:9999";
                         break;
                     case "320500CY0011": //苏天
-                        strUrl = "http://192.168.102.100:9999";
+                        strUrl = "http://192.167.102.100:9999";
                         break;
                     case "320500CY0012": //欧亚伟业
                         strUrl = "http://192.167.120.103:9999";
