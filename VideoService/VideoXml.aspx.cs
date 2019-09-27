@@ -201,8 +201,8 @@ namespace VideoService
                     case "320500CY0029": //瀚明  
                         strUrl = "http://192.167.158.100:9999";
                         break;
-                    case "320500CY0030": //广沣    ====================
-                        strUrl = "http://11.1.0.243:9999";
+                    case "320500CY0030": //广沣 / 创元   
+                        strUrl = "http://192.167.103.100:9999";
                         break;
                     case "320500CY0031": //国兴     
                         strUrl = "http://192.167.165.100:9999";
