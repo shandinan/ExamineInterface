@@ -19,7 +19,7 @@ namespace VideoService
             byte[] byts = new byte[Request.InputStream.Length];
             Request.InputStream.Read(byts, 0, byts.Length);
             string req = HttpUtility.UrlDecode(System.Text.Encoding.Default.GetString(byts));
-            string strTest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><soapenv:Body><ns1:setVideoPara soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:ns1=\"http://webServices.tmri.com\"><para xsi:type=\"xsd:string\">&lt;?xml version=&quot;1.0&quot; encoding=&quot;GBK&quot; ?&gt;&lt;root&gt;&lt;videopara&gt;&lt;cylsh&gt;1190605983558&lt;/cylsh&gt;&lt;cyqxh&gt;320500CY0001&lt;/cyqxh&gt;&lt;cyqtd&gt;3&lt;/cyqtd&gt;&lt;cllx&gt;0&lt;/cllx&gt;&lt;cysj&gt;2019/06/10 13:37:51&lt;/cysj&gt;&lt;cycs&gt;1&lt;/cycs&gt;&lt;sfzmhm&gt;320504198404070034&lt;/sfzmhm&gt;&lt;clsbdh&gt;LC0C34DG6K1017004&lt;/clsbdh&gt;&lt;hphm&gt;&#x82CF;&lt;/hphm&gt;&lt;hpzl&gt;02&lt;/hpzl&gt;&lt;/videopara&gt;&lt;/root&gt;</para></ns1:setVideoPara></soapenv:Body></soapenv:Envelope>";
+            string strTest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><soapenv:Body><ns1:setVideoPara soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:ns1=\"http://webServices.tmri.com\"><para xsi:type=\"xsd:string\">&lt;?xml version=&quot;1.0&quot; encoding=&quot;GBK&quot; ?&gt;&lt;root&gt;&lt;videopara&gt;&lt;cylsh&gt;1190605983558&lt;/cylsh&gt;&lt;cyqxh&gt;320500CY0001&lt;/cyqxh&gt;&lt;cyqtd&gt;1&lt;/cyqtd&gt;&lt;cllx&gt;0&lt;/cllx&gt;&lt;cysj&gt;2019/06/10 13:37:51&lt;/cysj&gt;&lt;cycs&gt;1&lt;/cycs&gt;&lt;sfzmhm&gt;320504198404070034&lt;/sfzmhm&gt;&lt;clsbdh&gt;LC0C34DG6K1017004&lt;/clsbdh&gt;&lt;hphm&gt;&#x82CF;&lt;/hphm&gt;&lt;hpzl&gt;02&lt;/hpzl&gt;&lt;/videopara&gt;&lt;/root&gt;</para></ns1:setVideoPara></soapenv:Body></soapenv:Envelope>";
             string strResponse = DealXML(req);
             // DealXML(req);
             //string strXml = HttpUtility.UrlDecode(Request.QueryString["xmldata"]);//得到对应的xml并解码
@@ -124,6 +124,7 @@ namespace VideoService
                         {
                             strUrl = "http://192.168.1.221:9999";
                         }
+                      //  strUrl = "http://192.168.1.51:9999";
                         break;
                     case "320500CY0002": //元素
                         strUrl = "http://192.167.128.129:9999";
