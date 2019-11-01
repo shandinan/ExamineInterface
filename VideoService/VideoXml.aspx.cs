@@ -223,6 +223,9 @@ namespace VideoService
                     case "320500CY0035": //华成集团   
                         strUrl = "http://192.167.113.100:9999";
                         break;
+                    case "320500CY0049": //太仓经济开发区  
+                        strUrl = "http://192.167.215.120:9999";
+                        break;
                     //case "320500CY0004": //城北检测线
                     //    strUrl = "http://192.167.166.100:9999";
                     //    break;
