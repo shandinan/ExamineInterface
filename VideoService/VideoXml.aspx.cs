@@ -229,6 +229,9 @@ namespace VideoService
                     //case "320500CY0004": //城北检测线
                     //    strUrl = "http://192.167.166.100:9999";
                     //    break;
+                    case "320500CY0050": //警邮移动检测
+                        strUrl = "http://192.168.0.40:9999";
+                        break;
                     default:
                         strUrl = "http://192.168.1.221:9999";
                         break;
