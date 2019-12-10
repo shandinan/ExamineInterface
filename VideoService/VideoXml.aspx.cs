@@ -121,7 +121,7 @@ namespace VideoService
                         if (strcyqtd == "5" || strcyqtd == "6" || strcyqtd == "7" || strcyqtd == "8") //苏州车管所
                         {
                             // strUrl = "http://192.168.1.221:9999";
-                            strUrl = "http://192.168.0.222:9999";
+                            strUrl = "http://192.168.1.222:9999";
                         }
                         else if (strcyqtd == "3") //城北检测线
                         {
