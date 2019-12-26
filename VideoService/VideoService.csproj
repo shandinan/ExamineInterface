@@ -100,6 +100,29 @@
     <Content Include="assets\admin\layout\scripts\demo.js" />
     <Content Include="assets\admin\layout\scripts\layout.js" />
     <Content Include="assets\admin\layout\scripts\quick-sidebar.js" />
+    <Content Include="assets\ckplayer\ckplayer\ckplayer.js" />
+    <Content Include="assets\ckplayer\ckplayer\ckplayer.min.js" />
+    <Content Include="assets\ckplayer\ckplayer\ckplayer.swf" />
+    <Content Include="assets\ckplayer\ckplayer\ckplayer.xml" />
+    <Content Include="assets\ckplayer\ckplayer\hls\hls.js" />
+    <Content Include="assets\ckplayer\ckplayer\hls\hls.min.js" />
+    <Content Include="assets\ckplayer\ckplayer\language.xml" />
+    <Content Include="assets\ckplayer\ckplayer\style.xml" />
+    <Content Include="assets\ckplayer\crossdomain.xml" />
+    <Content Include="assets\ckplayer\index.html" />
+    <Content Include="assets\ckplayer\material\logo.png" />
+    <Content Include="assets\ckplayer\material\mydream_en1800_1010_01.png" />
+    <Content Include="assets\ckplayer\material\mydream_en1800_1010_02.png" />
+    <Content Include="assets\ckplayer\material\poster.jpg" />
+    <Content Include="assets\ckplayer\sample\adother.html" />
+    <Content Include="assets\ckplayer\sample\dm.html" />
+    <Content Include="assets\ckplayer\sample\flashplayer.html" />
+    <Content Include="assets\ckplayer\sample\h5.html" />
+    <Content Include="assets\ckplayer\sample\iframe.html" />
+    <Content Include="assets\ckplayer\sample\index.html" />
+    <Content Include="assets\ckplayer\sample\ios.html" />
+    <Content Include="assets\ckplayer\sample\rtmp.html" />
+    <Content Include="assets\ckplayer\请看一下.txt" />
     <Content Include="assets\css\login.css" />
     <Content Include="assets\global\css\components.css" />
     <Content Include="assets\global\plugins\bootbox\bootbox.min.js" />
@@ -161,6 +184,7 @@
     <Content Include="assets\global\scripts\metronic.js" />
     <Content Include="assets\Image\loadingAnimation.gif" />
     <Content Include="assets\js\Date.js" />
+    <Content Include="ckPlayer.aspx" />
     <Content Include="dlls\Newtonsoft.Json.dll" />
     <Content Include="dlls\Oracle.ManagedDataAccess.dll" />
     <Content Include="ExamineVideo.aspx" />
@@ -173,6 +197,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ckPlayer.aspx.cs">
+      <DependentUpon>ckPlayer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ckPlayer.aspx.designer.cs">
+      <DependentUpon>ckPlayer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DBUtility\DbHelperOra.cs" />
     <Compile Include="ExamineVideo.aspx.cs">
       <DependentUpon>ExamineVideo.aspx</DependentUpon>
@@ -249,6 +280,10 @@
     <Content Include="assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.eot" />
     <Content Include="assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
     <Content Include="assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="assets\ckplayer\ckplayer\hls\LICENSE" />
+    <Content Include="assets\ckplayer\material\en.srt" />
+    <Content Include="assets\ckplayer\material\zh.vtt" />
+    <Content Include="assets\ckplayer\sample\ad.json" />
     <None Include="Properties\PublishProfiles\sss.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -257,7 +292,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="assets\flvplayer\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
