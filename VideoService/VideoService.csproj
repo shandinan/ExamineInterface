@@ -124,6 +124,8 @@
     <Content Include="assets\ckplayer\sample\rtmp.html" />
     <Content Include="assets\ckplayer\请看一下.txt" />
     <Content Include="assets\css\login.css" />
+    <Content Include="assets\flvplayer\Flvplayer.swf" />
+    <Content Include="assets\flvplayer\swflash.cab" />
     <Content Include="assets\global\css\components.css" />
     <Content Include="assets\global\plugins\bootbox\bootbox.min.js" />
     <Content Include="assets\global\plugins\bootstrap-table\bootstrap-table-zh-CN.min.js" />
@@ -188,6 +190,7 @@
     <Content Include="dlls\Newtonsoft.Json.dll" />
     <Content Include="dlls\Oracle.ManagedDataAccess.dll" />
     <Content Include="ExamineVideo.aspx" />
+    <Content Include="flvPlayer.aspx" />
     <Content Include="Global.asax" />
     <Content Include="PlayVideo.aspx" />
     <Content Include="VideoService.asmx" />
@@ -211,6 +214,13 @@
     </Compile>
     <Compile Include="ExamineVideo.aspx.designer.cs">
       <DependentUpon>ExamineVideo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="flvPlayer.aspx.cs">
+      <DependentUpon>flvPlayer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="flvPlayer.aspx.designer.cs">
+      <DependentUpon>flvPlayer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -292,9 +302,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\flvplayer\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

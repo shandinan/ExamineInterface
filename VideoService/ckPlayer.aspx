@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="video" style="width: 600px; height: 400px;"></div>
-    <script type="text/javascript" src="../ckplayer/ckplayer.js"></script>
+    <script type="text/javascript" src="assets/ckplayer/ckplayer/ckplayer.js"></script>
     <script type="text/javascript">
         function getQueryString() {
             var qs = location.search.substr(1), // 获取url中"?"符后的字串  
