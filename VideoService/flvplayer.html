@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>flvplayer</title>
+    <script src="assets/global/plugins/jquery.min.js"></script>
+</head>
+
+<body>
+  
+    <script type="text/javascript">
+
+        function getQueryString() {
+            var qs = location.search.substr(1), // 获取url中"?"符后的字串
+                args = {}, // 保存参数数据的对象
+                items = qs.length ? qs.split("&") : [], // 取得每一个参数项,
+                item = null,
+                len = items.length;
+
+            for (var i = 0; i < len; i++) {
+                item = items[i].split("=");
+                var name = decodeURIComponent(item[0]),
+                    value = decodeURIComponent(item[1]);
+                if (name) {
+                    args[name] = value;
+                }
+            }
+            return args;
+        }
+
+
+
+    </script>
+
+    <object classid='clsid:D27CDB6E-AE6D-11cf-96B8-4445535411111'
+            codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0'
+            width=500 height=400>
+        <param name='movie' value='tools/flvplayer.swf' />
+        <param name='quality' value='high' />
+        <param name='allowFullScreen' value='true' />
+        <param name='FlashVars'
+               value='vcastr_file=/test2.flv&IsAutoPlay=1&IsContinue=1' />
+        <embed src='Flvplayer.swf' allowfullscreen='true'
+               flashvars='vcastr_file=/test2.flv&IsAutoPlay=1&IsContinue=1'
+               quality='high'
+               pluginspage='http://www.macromedia.com/go/getflashplayer'
+               type='application/x-shockwave-flash' width=500 height=400 />
+    </object>
+
+
+</body>
+
+</html>
