@@ -160,7 +160,6 @@
     <!--- FOOT SCRIPT-->
      <script type="text/javascript">
         $(document).ready(function () {
-          
             $("#sdnPlayList a").click(function () {
                 //alert($(this).attr("name"));
                 $("#sdnPlayList a").removeClass("active");
@@ -176,19 +175,12 @@
                 } else {
                     $("#videoField").attr("src", "PlayVideo.aspx?videoUrl=\\\\192.168.0.248\\" + $(this).attr("name"));
                 }
-
-                 
-
-                //var sstest = $(this).attr("name").replace("Video", "");
-                //var ssdddd = "ftp://192.168.0.245" + sstest;
-                //alert(ssdddd);
-                //$("#videoField").attr("src", ssdddd);
-               // alert("PlayVideo.aspx?videoUrl=\\\\192.1.4.102\\" + $(this).attr("name"));
-              //  $("#videoField").attr("src", "PlayVideo.aspx?videoUrl=\\\\192.168.21.210\\Videoszjg\\" + $(this).attr("name")); //\\192.168.36.252\Videozjg_new
             });
-
-           // $("#Leftfront").click();
         });
+         ///mp4转flv
+         function Mp42Flv(path) {
+
+         }
     </script>
     <!-- END FOOT SCRIPT -->
 
